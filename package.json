@@ -1,0 +1,29 @@
+{
+  "name": "pokerstarstesting",
+  "version": "1.0.0",
+  "description": "10 Cucumber Test Cases of /Sports",
+  "main": "index.js",
+  "scripts": {
+    "tests": "npm run wdio",
+    "individual-feature": "wdio run ./wdio.conf.js --spec features/testBetStakeException.feature",
+    "wdio": "wdio run ./wdio.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thestarsgroup/front-end-tech-test.git"
+  },
+  "author": "Todor Kolev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thestarsgroup/front-end-tech-test.git"
+  },
+  "homepage": "https://github.com/thestarsgroup/front-end-tech-test#readme",
+  "devDependencies": {
+    "@wdio/cli": "^8.10.7",
+    "@wdio/cucumber-framework": "^8.10.7",
+    "@wdio/local-runner": "^8.10.7",
+    "@wdio/spec-reporter": "^8.10.6",
+    "chromedriver": "^114.0.1",
+    "wdio-chromedriver-service": "^8.1.1"
+  }
+}
