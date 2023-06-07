@@ -62,104 +62,96 @@ Instructions
 ************
 All features
 
-Feature: Add a bet, gamble 100. Potential returns should be more than 100
+    Feature: Add a bet, gamble 100. Potential returns should be more than 100
+    
+      Scenario: Checking that entered stake on a bet shows higher potential return
+        Given User has clicked on a bet
+        When User enters 100 pounds stake
+        Then Alert message is shown with potential returns higher than 100 pounds value
 
-  Scenario: Checking that entered stake on a bet shows higher potential return
-    Given User has clicked on a bet
-    When User enters 100 pounds stake
-    Then Alert message is shown with potential returns higher than 100 pounds value
+    Feature: Validate that the AZ List of Sports is populated
+    
+      Scenario: Testing the A-Z Sports list is not empty
+        Given User has opened the Sports section
+        When User checks the AZ List
+        Then User can select from the list of sports
 
+    Feature: Test that each radio button changes how the odds are displayed as bets
+    
+      We will be implementing scenario outline to apply the best practice in test case creation
 
-Feature: Validate that the AZ List of Sports is populated
+        Scenario Outline: Each radio button changes how odds are being displayed
+          Given User has selected their odds <type>
+          When User visits the bets section
+          Then <odds> are displayed with correct conversion
+          Examples:
+            | type                                                                      | odds |
+            | /html/body/div[1]/div[2]/div[3]/div[2]/div/section/div/div/label[1]/input | /    |
+            | /html/body/div[1]/div[2]/div[3]/div[2]/div/section/div/div/label[2]/input | .    |
+            | /html/body/div[1]/div[2]/div[3]/div[2]/div/section/div/div/label[3]/input | +    |
 
-  Scenario: Testing the A-Z Sports list is not empty
-    Given User has opened the Sports section
-    When User checks the AZ List
-    Then User can select from the list of sports
+    Feature:  Bet on the first 3 options, ensure bet slip is populated with 3 singles
+    
+      Scenario: User can mix and select multiple bets to be added to the bet slip
+        Given User has accessed one of the game sites
+        When User clicks a on a new bet
+        And add two more other bets from the same game site
+        Then Bet slip is populated with total of 3 bets
 
+    Feature: Smoke Test - Check website is working correctly and is ready
+    
+        Scenario: Check if website is working
+          Given User has opened the PokerStar website
+          When User opens the website
+          Then Website is in ready state
 
-Feature: Test that each radio button changes how the odds are displayed as bets
+    Feature: Force validation error for staking on a bet
+    
+      Scenario: Test one million pounds stake for negative testing
+        Given User has placed a new bet
+        When User stakes one million pounds
+        Then Error message is displayed
 
-  We will be implementing scenario outline to apply the best practice in test case creation
-
-    Scenario Outline: Each radio button changes how odds are being displayed
-      Given User has selected their odds <type>
-      When User visits the bets section
-      Then <odds> are displayed with correct conversion
-      Examples:
-        | type                                                                      | odds |
-        | /html/body/div[1]/div[2]/div[3]/div[2]/div/section/div/div/label[1]/input | /    |
-        | /html/body/div[1]/div[2]/div[3]/div[2]/div/section/div/div/label[2]/input | .    |
-        | /html/body/div[1]/div[2]/div[3]/div[2]/div/section/div/div/label[3]/input | +    |
-
-
-Feature:  Bet on the first 3 options, ensure bet slip is populated with 3 singles
-
-  Scenario: User can mix and select multiple bets to be added to the bet slip
-    Given User has accessed one of the game sites
-    When User clicks a on a new bet
-    And add two more other bets from the same game site
-    Then Bet slip is populated with total of 3 bets
-
-
-Feature: Smoke Test - Check website is working correctly and is ready
-
-    Scenario: Check if website is working
-      Given User has opened the PokerStar website
-      When User opens the website
-      Then Website is in ready state
-
-
-Feature: Force validation error for staking on a bet
-
-  Scenario: Test one million pounds stake for negative testing
-    Given User has placed a new bet
-    When User stakes one million pounds
-    Then Error message is displayed
-
-
-Feature: Test to validate that each tab can be opened within the Sports section
-
-  Scenario Outline: Validate each of the five sub-sections can be displayed
-    Given User is located on the Sports
-    When User enters <tab>
-    Then is it correctly <displayed>
-    Examples:
-      | tab        | displayed |
-      | Home       | Yes       |
-      | In-Play    | Yes       |
-      | My Bets    | Yes       |
-      | Promotions | Yes       |
-      | Settings   | Yes       |
+    Feature: Test to validate that each tab can be opened within the Sports section
+    
+      Scenario Outline: Validate each of the five sub-sections can be displayed
+        Given User is located on the Sports
+        When User enters <tab>
+        Then is it correctly <displayed>
+        Examples:
+          | tab        | displayed |
+          | Home       | Yes       |
+          | In-Play    | Yes       |
+          | My Bets    | Yes       |
+          | Promotions | Yes       |
+          | Settings   | Yes       |
 
 
-Feature: Testing Bet Slip
+    Feature: Testing Bet Slip
+    
+      Scenario: Validate empty bet list and adding new bet
+        Given Bet slip is empty
+        When User add a bet
+        Then Bet slip is populated
+        When User removes the bet
+        Then Bet slip is empty again
 
-  Scenario: Validate empty bet list and adding new bet
-    Given Bet slip is empty
-    When User add a bet
-    Then Bet slip is populated
-    When User removes the bet
-    Then Bet slip is empty again
+    Feature: Test to see if login button displays a pop up window
 
+      Scenario: Not logged in user is able to see pop up login
+        Given User is not logged in to the PokerStars
+        And both Join and Login buttons are visible
+        When User clicks on Login button
+        Then Pop up login window is displayed
 
-Feature: Test to see if login button displays a pop up window
+    Feature: Site Sections can go into each of Casino, Poker and Sports pages to ensure the correct website is displayed
 
-  Scenario: Not logged in user is able to see pop up login
-    Given User is not logged in to the PokerStars
-    And both Join and Login buttons are visible
-    When User clicks on Login button
-    Then Pop up login window is displayed
-
-
-Feature: Site Sections can go into each of Casino, Poker and Sports pages to ensure the correct website is displayed
-
-  Scenario Outline: Testing that user can access Casino section
-    Given User has opened the main website
-    When User select <site>
-    Then Correct site is <rendered> and is state ready
-    Examples:
-      | site   | rendered |
-      | Casino | Yes      |
-      | Poker  | Yes      |
-      | Sports | Yes      |
+      Scenario Outline: Testing that user can access Casino section
+        Given User has opened the main website
+        When User select <site>
+        Then Correct site is <rendered> and is state ready
+        Examples:
+          | site   | rendered |
+          | Casino | Yes      |
+          | Poker  | Yes      |
+          | Sports | Yes      |
