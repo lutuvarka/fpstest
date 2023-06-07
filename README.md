@@ -54,9 +54,11 @@ Instructions
 0. (Prerequisites) Have Node.js and Chrome browser installed
 1. Install the solution locally with 'npm install'
 2. To run all tests: 'npm run tests'
+
    To run an individual feature: Edit 'package.json/scripts/individual-feature' like so:
    "individual-feature": "wdio run ./wdio.conf.js --spec features/________.feature",
    (fill the blank with the name of the desired feature file)
+   
 = Observe tests running in parallel. The terminal will report the pass/fail count
 
 ************
